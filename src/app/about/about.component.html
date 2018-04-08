@@ -1,3 +1,58 @@
-<p>
-  about works!
-</p>
+<div class="container" fxLayout="column">
+  <div fxFlex>
+      <p>
+        About Us
+      </p>
+      <mat-divider></mat-divider>
+  </div>
+  <div fxFlex>
+    <h2>Our History</h2>
+  </div>
+
+  <div fxFlex class="topPadding">
+    <div fxLayout="row">
+
+        <div fxFlex="80">
+            <p>Aenean mollis viverra nisl, nec varius erat imperdiet ac. Etiam finibus accumsan dolor, rhoncus posuere tellus suscipit
+              pulvinar. Integer id leo eget ipsum placerat pharetra. Vivamus convallis diam mi, auctor placerat enim viverra mollis.
+              Praesent feugiat convallis nisl nec vulputate. Aenean sagittis egestas congue. Nunc at sagittis quam. Nunc vel maximus
+              augue. Donec sit amet consectetur odio, a vestibulum purus.</p>
+            <p>Aenean mollis viverra nisl, nec varius erat imperdiet ac. Etiam finibus accumsan dolor, rhoncus posuere tellus suscipit
+              pulvinar. Integer id leo eget ipsum placerat pharetra. Vivamus convallis diam mi, auctor placerat enim viverra mollis.
+              </p>
+          </div>
+      
+          <div fxFlex="20" fxFlexAlign="stretch">
+            <div class="mat-elevation-z8 facts-container">
+              <h4>Facts at a glance</h4>
+              <div matLine>some facts </div>
+              <div matLine>some facts</div>
+              <div matLine>some facts</div>
+              </div>
+      
+          </div>
+
+    </div>
+
+  </div>
+
+  <div fxFlex class="topPadding">
+      <div fxFlexLayout="row">
+          <mat-divider></mat-divider>
+          <h2>Our Corporate Leaders</h2>
+          <mat-list>
+              <mat-list-item *ngFor="let leader of leaders">
+                <img matListAvatar src={{leader.image}} alt={{leader.name}}>
+                <h3 matLine> {{leader.name}} </h3>
+                <p matLine>
+                  <span> {{leader.title}} </span>
+                  <span>{{leader.description}} </span>
+                </p>
+              </mat-list-item>
+            </mat-list>
+        </div>
+  </div>
+
+</div>
+
+
