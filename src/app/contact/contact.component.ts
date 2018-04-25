@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
 
 @Component({
@@ -83,10 +83,11 @@ export class ContactComponent implements OnInit {
 
   }
 
-  onSubmit(): void {
+  onSubmit(formDirective: FormGroupDirective): void {
     this.feedBack = this.feedBackForm.value;
     console.log(this.feedBack);
     this.feedBackForm.reset();
+    formDirective.resetForm();
   }
 
 }

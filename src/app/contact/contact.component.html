@@ -7,7 +7,7 @@
 
         <div fxFlex fxFlexOffset="20px" class="form-size">
 
-          <form novalidate [formGroup]="feedBackForm" (ngSubmit)="onSubmit()">
+          <form novalidate [formGroup]="feedBackForm" #formDirective="ngForm" (ngSubmit)="onSubmit(formDirective)">
 
               <p>
               <mat-input-container class="half-width">
