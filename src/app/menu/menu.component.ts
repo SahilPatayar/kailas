@@ -4,6 +4,7 @@ import { Dish } from '../shared/dish';
 import { Comment } from '../shared/comment';
 
 import { DishService } from '../services/dish.service';
+import { ProcessHttpmsgService } from '../services/process-httpmsg.service';
 
 @Component({
   selector: 'app-menu',
@@ -17,7 +18,8 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private dishService: DishService,
-    @Inject('BaseURL') private BaseURL
+    @Inject('BaseURL') private BaseURL,
+    private httpResponseProcessor: ProcessHttpmsgService
   ) {}
 
   ngOnInit() {
@@ -25,8 +27,9 @@ export class MenuComponent implements OnInit {
       .getDishes()
       .subscribe(
         dishes => (this.dishes = dishes),
-        errorMessage => (this.errorMessage = <any>errorMessage)
+        errorMessage => (this.errorMessage = <any>errorMessage.message)
       );
+      console.log(JSON.stringify(this.errorMessage));
   }
 
   onSelect(dish: Dish): void {

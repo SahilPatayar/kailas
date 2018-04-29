@@ -11,6 +11,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import 'hammerjs';
 
+import { RestangularModule, Restangular } from 'ngx-restangular';
+import { RestangularConfigFactory } from './shared/restAngularConfig';
+
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { DishDetailComponent } from './dish-detail/dish-detail.component';
@@ -49,7 +52,8 @@ import { ProcessHttpmsgService } from './services/process-httpmsg.service';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+    RestangularModule.forRoot(RestangularConfigFactory)
   ],
   entryComponents: [
     LoginComponent
