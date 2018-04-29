@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {FormControl, FormGroup, FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 
 import { Dish } from '../shared/dish';
@@ -16,7 +16,7 @@ import 'rxjs/add/operator/switchMap';
 })
 export class DishDetailComponent implements OnInit {
 
-  dish : Dish;
+  dish: Dish;
   prev: number;
   next: number;
   dishIds: number[];
@@ -44,7 +44,7 @@ export class DishDetailComponent implements OnInit {
 
   constructor(private dishService: DishService,
      private location: Location,
-     private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder) {
+     private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, @Inject('BaseURL') private BaseURL) {
        this.createForm();
        this.commentForm.valueChanges.subscribe(data => this.onValueChange(data));
        this.onValueChange();
@@ -59,8 +59,8 @@ export class DishDetailComponent implements OnInit {
     });
   }
 
-  onValueChange(data?: any): void{
-    if(! this.commentForm) {
+  onValueChange(data?: any): void {
+    if (! this.commentForm) {
       return;
     }
     const form = this.commentForm;
@@ -85,21 +85,21 @@ export class DishDetailComponent implements OnInit {
 
   setPrevNext(dishId: number) {
     let index = this.dishIds.indexOf(dishId);
-    this.prev = this.dishIds[(this.dishIds.length + index - 1)%this.dishIds.length];
-    this.next = this.dishIds[(this.dishIds.length + index + 1)%this.dishIds.length];
+    this.prev = this.dishIds[(this.dishIds.length + index - 1) % this.dishIds.length];
+    this.next = this.dishIds[(this.dishIds.length + index + 1) % this.dishIds.length];
   }
 
-  goBack() : void {
+  goBack(): void {
     this.location.back();
   }
 
-  onSubmit(formDirective: FormGroupDirective) {    
+  onSubmit(formDirective: FormGroupDirective) {
 
     this.comment = this.commentForm.value;
     this.comment.date = new Date().toISOString();
     this.dish.comments.push(this.comment);
     this.commentForm.reset({author: '', rating: '5', comment: ''},
-      {emitEvent:false});
+      {emitEvent: false});
   // Mat-input-field issue workaround
   // after submitting, the form stays red
   formDirective.resetForm();
