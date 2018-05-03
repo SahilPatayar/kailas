@@ -4,7 +4,6 @@ import { Dish } from '../shared/dish';
 import { Comment } from '../shared/comment';
 
 import { DishService } from '../services/dish.service';
-import { ProcessHttpmsgService } from '../services/process-httpmsg.service';
 
 import { flyInOut, expand } from '../animations/app.animation';
 
@@ -26,8 +25,7 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private dishService: DishService,
-    @Inject('BaseURL') private BaseURL,
-    private httpResponseProcessor: ProcessHttpmsgService
+    @Inject('BaseURL') private BaseURL
   ) {}
 
   ngOnInit() {

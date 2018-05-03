@@ -1,4 +1,5 @@
 import { AppPage } from './app.po';
+import { browser } from 'protractor';
 
 describe('kailas App', () => {
   let page: AppPage;
@@ -8,7 +9,33 @@ describe('kailas App', () => {
   });
 
   it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+    page.navigateTo('/');
+    expect(page.getParagraphText('app-root h1')).toEqual('Ristorante Kailas');
   });
+
+  it('Should navigate to ', () => {
+    page.navigateTo('/');
+    const navLink = page.getAllElements('a').get(1);
+
+    navLink.click();
+
+    expect(page.getParagraphText('h3')).toBe('About Us');
+
+  });
+
+  it('should enter a new comment for the first dish', () => {
+    page.navigateTo('/dishdetail/0');
+
+    const newAuthor = page.getElement('input[type=text]');
+    newAuthor.sendKeys('Test Author');
+
+    const newComment = page.getElement('textarea');
+    newComment.sendKeys('Test Comment');
+
+    const newSubmitButton = page.getElement('button[type=submit]');
+    newSubmitButton.click();
+
+    browser.pause();
+  });
+
 });
