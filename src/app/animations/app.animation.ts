@@ -45,3 +45,44 @@ import {
         ])
     ]);
 }
+
+export function flyIn() {
+  return trigger('inputFormState', [
+    state(
+      'pending',
+      style({
+        transform: 'scale(1.0)',
+        opacity: 1
+      })
+    ),
+    state(
+      'done',
+      style({
+        transform: 'scale(0.0)',
+        opacity: 0
+      })
+    ),
+    transition('* => *', animate('1s ease-in-out'))
+  ]);
+}
+
+export function flyOut() {
+  return trigger('formDetailState', [
+    state(
+      'show',
+      style({
+        transform: 'scale(1.0)',
+        opacity: 1
+      })
+    ),
+    state(
+      'hide',
+      style({
+        transform: 'scale(0.0)',
+        opacity: 0
+      })
+    ),
+    transition('hide => show',  [style({opacity: 1, transform: 'scale(1.0)' }), animate('5s')]),
+    transition('show => hide', [style({opacity: 0, transform: 'scale(0.0)' }), animate('5s')])
+  ]);
+}

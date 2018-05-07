@@ -8,4 +8,4 @@ export class Feedback {
     agree: boolean;
     contactType: string;
     message: string;
-};
+}

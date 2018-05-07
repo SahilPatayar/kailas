@@ -19,6 +19,10 @@
 
   </div>
 
+  <div *ngIf="errorMessageDish" fxFlex>
+    <h2>{{errorMessageDish}}</h2>
+  </div>
+
   <div *ngIf="promotion" fxFlex>
 
     <mat-card>
@@ -28,7 +32,7 @@
           <h3>{{promotion.name | uppercase}}</h3>
         </mat-card-title>
       </mat-card-header>
-      <img mat-card-image src={{promotion.image}} alt={{promotion.name}}>
+      <img mat-card-image src="{{BaseURL + promotion.image}}" alt={{promotion.name}}>
       <mat-card-content>
         <p>{{promotion.description}}
         </p>
@@ -37,7 +41,11 @@
 
   </div>
 
-  <div *ngIf="dish" fxFlex>
+  <div *ngIf="errorMessagePromotion" fxFlex>
+    <h2>{{errorMessagePromotion}}</h2>
+  </div>
+
+  <div *ngIf="leader" fxFlex>
 
     <mat-card>
       <mat-card-header>
@@ -46,13 +54,17 @@
           <h3>{{leader.name | uppercase}}</h3>
         </mat-card-title>
       </mat-card-header>
-      <img mat-card-image src={{leader.image}} alt={{leader.name}} width="200px">
+      <img mat-card-image src="{{BaseURL + leader.image}}" alt={{leader.name}} width="200px">
       <mat-card-content>
         <p>{{leader.description}}
         </p>
       </mat-card-content>
     </mat-card>
 
+  </div>
+
+  <div *ngIf="errorMessageLeader" fxFlex>
+    <h2>{{errorMessageLeader}}</h2>
   </div>
 
 </div>

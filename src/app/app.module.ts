@@ -32,6 +32,7 @@ import { LoginComponent } from './login/login.component';
 import { baseURL } from './shared/baseUrl';
 import { ProcessHttpmsgService } from './services/process-httpmsg.service';
 import { HighlightDirective } from './directives/highlight.directive';
+import { ContactService } from './services/contact.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { HighlightDirective } from './directives/highlight.directive';
     AboutComponent,
     ContactComponent,
     LoginComponent,
-    HighlightDirective,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
@@ -57,10 +58,15 @@ import { HighlightDirective } from './directives/highlight.directive';
     HttpModule,
     RestangularModule.forRoot(RestangularConfigFactory)
   ],
-  entryComponents: [
-    LoginComponent
-],
-  providers: [ DishService, PromotionService, LeaderService, ProcessHttpmsgService, {provide: 'BaseURL', useValue: baseURL} ],
+  entryComponents: [LoginComponent],
+  providers: [
+    DishService,
+    PromotionService,
+    LeaderService,
+    ProcessHttpmsgService,
+    ContactService,
+    { provide: 'BaseURL', useValue: baseURL }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,6 +1,6 @@
 <div class="container" fxLayout="column" fxLayoutGap="10px">
 
-  <div fxFlex>   
+  <div fxFlex [@inputFormState]="inputFormState">   
       <h3>Contact Us</h3>  
       
       <div fxLayout="row" fxLayout.gt-sm="column">
@@ -54,6 +54,33 @@
 
       </div>      
 
+  </div>
+
+  <div  fxFlex [@formDetailState]="formDetailState" (@formDetailState.start)="formAnimationStart($event)" (@formDetailState.done)="formAnimationEnded($event)">
+    <h4>Form Submitted</h4>
+    <div *ngIf="feedBackCopy">
+      <p matLine>
+        <span>First Name: </span><span>{{feedBackCopy.firstName}} </span>
+      </p>
+      <p matLine>
+        <span>Last Name: </span><span>{{feedBackCopy.lastName}} </span>
+      </p>
+      <p matLine>
+        <span>Tel Number: </span><span>{{feedBackCopy.telNum}} </span>
+      </p>
+      <p matLine>
+        <span>Email: </span><span>{{feedBackCopy.email}} </span>
+      </p>
+      <p matLine *ngIf="feedBackCopy.agree">
+        <span>Agree To Contact: </span><span>{{feedBackCopy.agree}} </span>
+      </p>
+      <p matLine *ngIf="feedBackCopy.contactType">
+        <span>Contact type: </span><span>{{feedBackCopy.contactType}} </span>
+      </p>
+      <p matLine *ngIf="feedBackCopy.message">
+        <span>Message: </span><span>{{feedBackCopy.message}} </span>
+      </p>
+    </div>
   </div>
 
   <div fxFlex>

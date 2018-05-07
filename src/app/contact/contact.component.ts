@@ -1,17 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
-
+import { ContactService } from '../services/contact.service';
+import { flyIn, flyOut } from '../animations/app.animation';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
+  styleUrls: ['./contact.component.scss'],
+  animations: [flyIn(), flyOut()]
 })
 export class ContactComponent implements OnInit {
 
   feedBackForm: FormGroup;
   feedBack: Feedback;
   contactType = ContactType;
+
+  feedBackCopy: Feedback;
+
+  // Animation driving paramters
+  inputFormState = 'pending';
+  formDetailState = 'hide';
 
   formErrors = {
     firstName: '',
@@ -41,8 +49,8 @@ export class ContactComponent implements OnInit {
     }
   };
 
-  constructor(private formBuilder: FormBuilder) { 
-    this.createForm()
+  constructor(private formBuilder: FormBuilder, private contactService: ContactService) {
+    this.createForm();
   }
 
   ngOnInit() {
@@ -52,7 +60,7 @@ export class ContactComponent implements OnInit {
     this.feedBackForm = this.formBuilder.group({
       firstName: ['', [ Validators.required, Validators.minLength(2), Validators.maxLength(25)] ],
       lastName: ['', [ Validators.required, Validators.minLength(2), Validators.maxLength(25) ] ],
-      telNum: ['', [ Validators.required, Validators.pattern("^[0-9]*$") ] ],
+      telNum: ['', [ Validators.required, Validators.pattern('^[0-9]*$') ] ],
       email: ['', [ Validators.required, Validators.email ] ],
       agree: false,
       contactType: 'None',
@@ -64,7 +72,7 @@ export class ContactComponent implements OnInit {
   }
 
   onValueChange(data?: any): void {
-    if(!this.feedBackForm) {
+    if (!this.feedBackForm) {
       return;
     }
 
@@ -84,10 +92,22 @@ export class ContactComponent implements OnInit {
   }
 
   onSubmit(formDirective: FormGroupDirective): void {
+    this.inputFormState = 'done';
     this.feedBack = this.feedBackForm.value;
     console.log(this.feedBack);
+    this.contactService.saveFeedback(this.feedBack)
+      .subscribe(response => {this.feedBackCopy = <Feedback>response; this.formDetailState = 'show'; });
     this.feedBackForm.reset();
     formDirective.resetForm();
+  }
+
+  formAnimationStart(event) {
+  }
+
+  formAnimationEnded(event) {
+    this.inputFormState = 'pending';
+    this.formDetailState = 'hide';
+    this.feedBackCopy = null;
   }
 
 }
